@@ -2,7 +2,7 @@ const weatherFormData = document.querySelector('.weatherForm')
 const weatherDisplay = document.querySelector('.weatherDisplay')
 const weekWeatherDisplay = document.querySelector('.weekWeatherDisplay')
 const weekH1 = document.querySelector('.weeklyH1')
-// const weatherAlertDiv = document.querySelector('.weather-alert')
+const weatherAlertDiv = document.querySelector('.weather-alert')
 const currentWeatherDiv = document.querySelector('.current-weather-div')
 
 // secret keys for api's
@@ -150,122 +150,218 @@ const displayWeatherData = (data) => {
     weatherDisplay.style.borderColor = "black"
 
 
-    // display all weather data on html 
-    weatherDisplay.innerHTML = `
-    <h1 class="header">Current Weather For</h1>
-    <h1 class="header">${cityState}</h1>
-    <div class="currentWeatherCard">
-        <img class="card-img" src="https://openweathermap.org/img/wn/${currentWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current">Current Temp: ${currentTemp}&deg;F</p>
-            <p class="current">Feels Like: ${feelsLikeTemp}&deg;F</p>
-            <p class="current">Weather: ${currentWeatherDescription}</p>
-            <p class="current">Wind Speed: ${currentWindSpeed}mph</p>
+
+    if ('alerts' in data) {
+        weatherAlertDiv.style.display = 'block'
+
+        weatherDisplay.innerHTML = `
+        <h1 class="header">Current Weather For</h1>
+        <h1 class="header">${cityState}</h1>
+        <div class="currentWeatherCard">
+            <img class="card-img" src="https://openweathermap.org/img/wn/${currentWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current">Current Temp: ${currentTemp}&deg;F</p>
+                <p class="current">Feels Like: ${feelsLikeTemp}&deg;F</p>
+                <p class="current">Weather: ${currentWeatherDescription}</p>
+                <p class="current">Wind Speed: ${currentWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
-    `
+        `
 
-    // saved for later to add alerts
+        weatherAlertDiv.innerHTML = `
+        <div class="alert-card">
+            <div class="currentWeatherCard">
+            <h1 class="alert-header">${alertEvent}</h1>
+            <h1 class="alert-header">${alertEnd}</h1>
+            <div class="card-body">
+                <p class="current">${alertDescription}</p>
+            </div>
+        </div>
+        `
 
-    // if ('alerts' in data) {
-    //     const weatherAlertContainer = document.createElement('div');
-    //     weatherAlertContainer.className = 'weather-alert'
-    //     currentWeatherDiv.append(weatherAlertContainer)
-
-    //     weatherAlertContainer.innerHTML = `
-    //     <div class="alert-card">
-    //         <div class="currentWeatherCard">
-    //         <h1 class="alert-header">${alertEvent}</h1>
-    //         <h1 class="alert-header">${alertEnd}</h1>
-    //         <div class="card-body">
-    //             <p class="current">${alertDescription}</p>
-    //         </div>
-    //     </div>
-    //     `
-    // }
-
-    weekH1.innerHTML = `
+        weekH1.innerHTML = `
         <h1 class="header">Weekly Weather Forcast</h1>
-    `
+        `
 
-    weekWeatherDisplay.innerHTML = `
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${firstDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${firstWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${firstTempMax}&deg;F</p>
-            <p class="current">Low: ${firstTempMin}&deg;F</p>
-            <p class="current">Weather: ${firstWeatherDescription}</p>
-            <p class="current">Wind Speed: ${firstWindSpeed}mph</p>
+        weekWeatherDisplay.innerHTML = `
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${firstDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${firstWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${firstTempMax}&deg;F</p>
+                <p class="current">Low: ${firstTempMin}&deg;F</p>
+                <p class="current">Weather: ${firstWeatherDescription}</p>
+                <p class="current">Wind Speed: ${firstWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
 
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${secondDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${secondWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${secondTempMax}&deg;F</p>
-            <p class="current">Low: ${secondTempMin}&deg;F</p>
-            <p class="current">Weather: ${secondWeatherDescription}</p>
-            <p class="current">Wind Speed: ${secondWindSpeed}mph</p>
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${secondDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${secondWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${secondTempMax}&deg;F</p>
+                <p class="current">Low: ${secondTempMin}&deg;F</p>
+                <p class="current">Weather: ${secondWeatherDescription}</p>
+                <p class="current">Wind Speed: ${secondWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
 
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${thirdDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${thirdWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${thirdTempMax}&deg;F</p>
-            <p class="current">Low: ${thirdTempMin}&deg;F</p>
-            <p class="current">Weather: ${thirdWeatherDescription}</p>
-            <p class="current">Wind Speed: ${thirdWindSpeed}mph</p>
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${thirdDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${thirdWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${thirdTempMax}&deg;F</p>
+                <p class="current">Low: ${thirdTempMin}&deg;F</p>
+                <p class="current">Weather: ${thirdWeatherDescription}</p>
+                <p class="current">Wind Speed: ${thirdWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
 
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${fourthDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${fourthWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${fourthTempMax}&deg;F</p>
-            <p class="current">Low: ${fourthTempMin}&deg;F</p>
-            <p class="current">Weather: ${fourthWeatherDescription}</p>
-            <p class="current">Wind Speed: ${fourthWindSpeed}mph</p>
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${fourthDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${fourthWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${fourthTempMax}&deg;F</p>
+                <p class="current">Low: ${fourthTempMin}&deg;F</p>
+                <p class="current">Weather: ${fourthWeatherDescription}</p>
+                <p class="current">Wind Speed: ${fourthWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
 
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${fifthDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${fifthWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${fifthTempMax}&deg;F</p>
-            <p class="current">Low: ${fifthTempMin}&deg;F</p>
-            <p class="current">Weather: ${fifthWeatherDescription}</p>
-            <p class="current">Wind Speed: ${fifthWindSpeed}mph</p>
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${fifthDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${fifthWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${fifthTempMax}&deg;F</p>
+                <p class="current">Low: ${fifthTempMin}&deg;F</p>
+                <p class="current">Weather: ${fifthWeatherDescription}</p>
+                <p class="current">Wind Speed: ${fifthWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
 
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${sixthDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${sixthWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${sixthTempMax}&deg;F</p>
-            <p class="current">Low: ${sixthTempMin}&deg;F</p>
-            <p class="current">Weather: ${sixthWeatherDescription}</p>
-            <p class="current">Wind Speed: ${sixthWindSpeed}mph</p>
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${sixthDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${sixthWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${sixthTempMax}&deg;F</p>
+                <p class="current">Low: ${sixthTempMin}&deg;F</p>
+                <p class="current">Weather: ${sixthWeatherDescription}</p>
+                <p class="current">Wind Speed: ${sixthWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
 
-    <div class="weekWeatherCard">
-        <h1 class="weekly-h1">${lastDay}</h1>
-        <img class="card-img week" src="https://openweathermap.org/img/wn/${lastWeatherIcon}@2x.png" alt="">
-        <div class="card-body">
-            <p class="current top-p">High: ${lastTempMax}&deg;F</p>
-            <p class="current">Low: ${lastTempMin}&deg;F</p>
-            <p class="current">Weather: ${lastWeatherDescription}</p>
-            <p class="current">Wind Speed: ${lastWindSpeed}mph</p>
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${lastDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${lastWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${lastTempMax}&deg;F</p>
+                <p class="current">Low: ${lastTempMin}&deg;F</p>
+                <p class="current">Weather: ${lastWeatherDescription}</p>
+                <p class="current">Wind Speed: ${lastWindSpeed}mph</p>
+            </div>
         </div>
-    </div>
-    `
+        `
+    } else {
+        weatherAlertDiv.style.display = 'none'
+
+        weatherDisplay.innerHTML = `
+        <h1 class="header">Current Weather For</h1>
+        <h1 class="header">${cityState}</h1>
+        <div class="currentWeatherCard">
+            <img class="card-img" src="https://openweathermap.org/img/wn/${currentWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current">Current Temp: ${currentTemp}&deg;F</p>
+                <p class="current">Feels Like: ${feelsLikeTemp}&deg;F</p>
+                <p class="current">Weather: ${currentWeatherDescription}</p>
+                <p class="current">Wind Speed: ${currentWindSpeed}mph</p>
+            </div>
+        </div>
+        `
+
+        weekH1.innerHTML = `
+        <h1 class="header">Weekly Weather Forcast</h1>
+        `
+
+        weekWeatherDisplay.innerHTML = `
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${firstDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${firstWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${firstTempMax}&deg;F</p>
+                <p class="current">Low: ${firstTempMin}&deg;F</p>
+                <p class="current">Weather: ${firstWeatherDescription}</p>
+                <p class="current">Wind Speed: ${firstWindSpeed}mph</p>
+            </div>
+        </div>
+
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${secondDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${secondWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${secondTempMax}&deg;F</p>
+                <p class="current">Low: ${secondTempMin}&deg;F</p>
+                <p class="current">Weather: ${secondWeatherDescription}</p>
+                <p class="current">Wind Speed: ${secondWindSpeed}mph</p>
+            </div>
+        </div>
+
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${thirdDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${thirdWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${thirdTempMax}&deg;F</p>
+                <p class="current">Low: ${thirdTempMin}&deg;F</p>
+                <p class="current">Weather: ${thirdWeatherDescription}</p>
+                <p class="current">Wind Speed: ${thirdWindSpeed}mph</p>
+            </div>
+        </div>
+
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${fourthDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${fourthWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${fourthTempMax}&deg;F</p>
+                <p class="current">Low: ${fourthTempMin}&deg;F</p>
+                <p class="current">Weather: ${fourthWeatherDescription}</p>
+                <p class="current">Wind Speed: ${fourthWindSpeed}mph</p>
+            </div>
+        </div>
+
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${fifthDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${fifthWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${fifthTempMax}&deg;F</p>
+                <p class="current">Low: ${fifthTempMin}&deg;F</p>
+                <p class="current">Weather: ${fifthWeatherDescription}</p>
+                <p class="current">Wind Speed: ${fifthWindSpeed}mph</p>
+            </div>
+        </div>
+
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${sixthDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${sixthWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${sixthTempMax}&deg;F</p>
+                <p class="current">Low: ${sixthTempMin}&deg;F</p>
+                <p class="current">Weather: ${sixthWeatherDescription}</p>
+                <p class="current">Wind Speed: ${sixthWindSpeed}mph</p>
+            </div>
+        </div>
+
+        <div class="weekWeatherCard">
+            <h1 class="weekly-h1">${lastDay}</h1>
+            <img class="card-img week" src="https://openweathermap.org/img/wn/${lastWeatherIcon}@2x.png" alt="">
+            <div class="card-body">
+                <p class="current top-p">High: ${lastTempMax}&deg;F</p>
+                <p class="current">Low: ${lastTempMin}&deg;F</p>
+                <p class="current">Weather: ${lastWeatherDescription}</p>
+                <p class="current">Wind Speed: ${lastWindSpeed}mph</p>
+            </div>
+        </div>
+        `    
+    }
+
 
     // ** Will change to case statements later **
     // conditionals to check current weather description to change background
