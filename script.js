@@ -8,7 +8,6 @@ const currentWeatherDiv = document.querySelector('.current-weather-div')
 // secret keys for api's
 
 
-
 weatherFormData.addEventListener('submit', (event) => {
     // prevent page from refreshing
     event.preventDefault()
